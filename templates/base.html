@@ -193,7 +193,7 @@
     <nav class="navbar">
         <div class="container mx-auto px-8 h-full flex items-center justify-between">
             <!-- Logo -->
-            <div class="flex-shrink-0 -ml-12">
+            <div class="flex-shrink-0 -ml-3">
                 <a href="{{ url_for('index') }}" class="flex items-center">
                     <img src="{{ url_for('static', filename='images/logo.jpg') }}" 
                          alt="InternX Logo" 
@@ -215,7 +215,7 @@
             </div>
 
             <!-- 登入/註冊按鈕 -->
-            <div class="flex items-center space-x-4 mr-[-40px]">
+            <div class="flex items-center space-x-4 mr-[-8px]">
                 {% if current_user.is_authenticated %}
                     <div class="relative group">
                         <button class="flex items-center space-x-2 focus:outline-none">
