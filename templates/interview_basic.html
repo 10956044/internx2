@@ -1,0 +1,323 @@
+{% extends "base.html" %}
+
+{% block title %}分享面試經驗 - 基本資訊{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-8 py-8">
+    <div class="max-w-6xl mx-auto translate-x-8">
+        <!-- 進度指示器 -->
+        <div class="mb-8">
+            <div class="flex items-center justify-center space-x-4">
+                <div class="flex items-center">
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-r from-blue-400 to-purple-400 text-white flex items-center justify-center">1</div>
+                    <div class="ml-2 text-gray-600">基本資訊</div>
+                </div>
+                <div class="w-24 h-1 bg-gray-200"></div>
+                <div class="flex items-center">
+                    <div class="w-8 h-8 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center">2</div>
+                    <div class="ml-2 text-gray-400">詳細內容</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- 左側表單 -->
+            <div class="lg:w-[65%]">
+                <form id="interviewForm" class="bg-white rounded-2xl shadow-lg p-8" action="{{ url_for('interview_detail') }}" method="POST">
+                    <!-- 公司名稱 -->
+                    <div class="mb-6">
+                        <label class="block text-gray-700 text-sm font-medium mb-2" for="company">
+                            應徵公司 <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" id="company" name="company" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+                            placeholder="請輸入公司名稱">
+                    </div>
+
+                    <!-- 職務名稱 -->
+                    <div class="mb-6">
+                        <label class="block text-gray-700 text-sm font-medium mb-2" for="position">
+                            應徵職務 <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" id="position" name="position" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+                            placeholder="請輸入職務名稱">
+                    </div>
+
+                    <!-- 面試地點 -->
+                    <div class="mb-6">
+                        <label class="block text-gray-700 text-sm font-medium mb-2" for="location">
+                            面試地點 <span class="text-red-500">*</span>
+                        </label>
+                        <select id="location" name="location" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent">
+                            <option value="">請選擇面試地點</option>
+                            <option value="線上">線上</option>
+                            <option value="公司現場">公司現場</option>
+                            <option value="其他">其他</option>
+                        </select>
+                    </div>
+
+                    <!-- 面試時間 -->
+                    <div class="mb-6">
+                        <label class="block text-gray-700 text-sm font-medium mb-2" for="interview_date">
+                            面試時間 <span class="text-red-500">*</span>
+                        </label>
+                        <input type="date" id="interview_date" name="interview_date" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent">
+                    </div>
+
+                    <!-- 面試評價 -->
+                    <div class="mb-6">
+                        <label class="block text-gray-700 text-sm font-medium mb-2">
+                            面試評價 <span class="text-red-500">*</span>
+                        </label>
+                        <div class="flex items-center space-x-4">
+                            <input type="range" id="rating" name="rating" min="1" max="5" value="3" required
+                                class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                            <div class="flex items-center space-x-1">
+                                <span id="ratingValue" class="text-gray-600">3</span>
+                                <i class="fas fa-star text-yellow-400"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 面試難度 -->
+                    <div class="mb-6">
+                        <label class="block text-gray-700 text-sm font-medium mb-2">
+                            面試難度 <span class="text-red-500">*</span>
+                        </label>
+                        <div class="flex items-center space-x-4">
+                            <input type="range" id="difficulty" name="difficulty" min="1" max="5" value="3" required
+                                class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                            <div class="flex items-center space-x-1">
+                                <span id="difficultyValue" class="text-gray-600">3</span>
+                                <i class="fas fa-star text-yellow-400"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 面試結果 -->
+                    <div class="mb-6">
+                        <label class="block text-gray-700 text-sm font-medium mb-2">
+                            面試結果 <span class="text-red-500">*</span>
+                        </label>
+                        <div class="flex flex-wrap gap-3">
+                            <label class="relative">
+                                <input type="radio" name="result" value="錄取" required class="peer sr-only">
+                                <div class="px-6 py-2 text-center rounded-xl border-2 border-gray-200 peer-checked:border-blue-400/30 peer-checked:bg-blue-50/50 hover:border-blue-300/50 transition-all duration-300 cursor-pointer">
+                                    <span class="text-gray-700 peer-checked:text-blue-600">錄取</span>
+                                </div>
+                            </label>
+                            <label class="relative">
+                                <input type="radio" name="result" value="未錄取" class="peer sr-only">
+                                <div class="px-6 py-2 text-center rounded-xl border-2 border-gray-200 peer-checked:border-blue-400/30 peer-checked:bg-blue-50/50 hover:border-blue-300/50 transition-all duration-300 cursor-pointer">
+                                    <span class="text-gray-700 peer-checked:text-blue-600">未錄取</span>
+                                </div>
+                            </label>
+                            <label class="relative">
+                                <input type="radio" name="result" value="尚未通知" class="peer sr-only">
+                                <div class="px-6 py-2 text-center rounded-xl border-2 border-gray-200 peer-checked:border-blue-400/30 peer-checked:bg-blue-50/50 hover:border-blue-300/50 transition-all duration-300 cursor-pointer">
+                                    <span class="text-gray-700 peer-checked:text-blue-600">尚未通知</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 面試語言 -->
+                    <div class="mb-6">
+                        <label class="block text-gray-700 text-sm font-medium mb-2">
+                            面試語言 <span class="text-red-500">*</span>
+                        </label>
+                        <div class="flex flex-wrap gap-3">
+                            <label class="relative">
+                                <input type="radio" name="language" value="中文" required class="peer sr-only">
+                                <div class="px-6 py-2 text-center rounded-xl border-2 border-gray-200 peer-checked:border-blue-400/30 peer-checked:bg-blue-50/50 hover:border-blue-300/50 transition-all duration-300 cursor-pointer">
+                                    <span class="text-gray-700 peer-checked:text-blue-600">中文</span>
+                                </div>
+                            </label>
+                            <label class="relative">
+                                <input type="radio" name="language" value="英文" class="peer sr-only">
+                                <div class="px-6 py-2 text-center rounded-xl border-2 border-gray-200 peer-checked:border-blue-400/30 peer-checked:bg-blue-50/50 hover:border-blue-300/50 transition-all duration-300 cursor-pointer">
+                                    <span class="text-gray-700 peer-checked:text-blue-600">英文</span>
+                                </div>
+                            </label>
+                            <label class="relative">
+                                <input type="radio" name="language" value="日文" class="peer sr-only">
+                                <div class="px-6 py-2 text-center rounded-xl border-2 border-gray-200 peer-checked:border-blue-400/30 peer-checked:bg-blue-50/50 hover:border-blue-300/50 transition-all duration-300 cursor-pointer">
+                                    <span class="text-gray-700 peer-checked:text-blue-600">日文</span>
+                                </div>
+                            </label>
+                            <label class="relative">
+                                <input type="radio" name="language" value="其他" class="peer sr-only">
+                                <div class="px-6 py-2 text-center rounded-xl border-2 border-gray-200 peer-checked:border-blue-400/30 peer-checked:bg-blue-50/50 hover:border-blue-300/50 transition-all duration-300 cursor-pointer">
+                                    <span class="text-gray-700 peer-checked:text-blue-600">其他</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 是否有筆試 -->
+                    <div class="mb-6">
+                        <label class="block text-gray-700 text-sm font-medium mb-2">
+                            是否有筆試 <span class="text-red-500">*</span>
+                        </label>
+                        <div class="flex flex-wrap gap-3">
+                            <label class="relative">
+                                <input type="radio" name="written_test" value="是" required class="peer sr-only">
+                                <div class="px-6 py-2 text-center rounded-xl border-2 border-gray-200 peer-checked:border-blue-400/30 peer-checked:bg-blue-50/50 hover:border-blue-300/50 transition-all duration-300 cursor-pointer">
+                                    <span class="text-gray-700 peer-checked:text-blue-600">是</span>
+                                </div>
+                            </label>
+                            <label class="relative">
+                                <input type="radio" name="written_test" value="否" class="peer sr-only">
+                                <div class="px-6 py-2 text-center rounded-xl border-2 border-gray-200 peer-checked:border-blue-400/30 peer-checked:bg-blue-50/50 hover:border-blue-300/50 transition-all duration-300 cursor-pointer">
+                                    <span class="text-gray-700 peer-checked:text-blue-600">否</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 是否有二次面試 -->
+                    <div class="mb-6">
+                        <label class="block text-gray-700 text-sm font-medium mb-2">
+                            是否有二次面試 <span class="text-red-500">*</span>
+                        </label>
+                        <div class="flex flex-wrap gap-3">
+                            <label class="relative">
+                                <input type="radio" name="second_interview" value="是" required class="peer sr-only">
+                                <div class="px-6 py-2 text-center rounded-xl border-2 border-gray-200 peer-checked:border-blue-400/30 peer-checked:bg-blue-50/50 hover:border-blue-300/50 transition-all duration-300 cursor-pointer">
+                                    <span class="text-gray-700 peer-checked:text-blue-600">是</span>
+                                </div>
+                            </label>
+                            <label class="relative">
+                                <input type="radio" name="second_interview" value="否" class="peer sr-only">
+                                <div class="px-6 py-2 text-center rounded-xl border-2 border-gray-200 peer-checked:border-blue-400/30 peer-checked:bg-blue-50/50 hover:border-blue-300/50 transition-all duration-300 cursor-pointer">
+                                    <span class="text-gray-700 peer-checked:text-blue-600">否</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 多久收到結果 -->
+                    <div class="mb-8">
+                        <label class="block text-gray-700 text-sm font-medium mb-2">
+                            多久收到結果 <span class="text-red-500">*</span>
+                        </label>
+                        <div class="flex flex-wrap gap-3">
+                            <label class="relative">
+                                <input type="radio" name="result_wait_time" value="1-3天" required class="peer sr-only">
+                                <div class="px-6 py-2 text-center rounded-xl border-2 border-gray-200 peer-checked:border-blue-400/30 peer-checked:bg-blue-50/50 hover:border-blue-300/50 transition-all duration-300 cursor-pointer">
+                                    <span class="text-gray-700 peer-checked:text-blue-600">1-3天</span>
+                                </div>
+                            </label>
+                            <label class="relative">
+                                <input type="radio" name="result_wait_time" value="3-7天" class="peer sr-only">
+                                <div class="px-6 py-2 text-center rounded-xl border-2 border-gray-200 peer-checked:border-blue-400/30 peer-checked:bg-blue-50/50 hover:border-blue-300/50 transition-all duration-300 cursor-pointer">
+                                    <span class="text-gray-700 peer-checked:text-blue-600">3-7天</span>
+                                </div>
+                            </label>
+                            <label class="relative">
+                                <input type="radio" name="result_wait_time" value="7天以上" class="peer sr-only">
+                                <div class="px-6 py-2 text-center rounded-xl border-2 border-gray-200 peer-checked:border-blue-400/30 peer-checked:bg-blue-50/50 hover:border-blue-300/50 transition-all duration-300 cursor-pointer">
+                                    <span class="text-gray-700 peer-checked:text-blue-600">7天以上</span>
+                                </div>
+                            </label>
+                            <label class="relative">
+                                <input type="radio" name="result_wait_time" value="等待中" class="peer sr-only">
+                                <div class="px-6 py-2 text-center rounded-xl border-2 border-gray-200 peer-checked:border-blue-400/30 peer-checked:bg-blue-50/50 hover:border-blue-300/50 transition-all duration-300 cursor-pointer">
+                                    <span class="text-gray-700 peer-checked:text-blue-600">等待中</span>
+                                </div>
+                            </label>
+                            <label class="relative">
+                                <input type="radio" name="result_wait_time" value="無聲卡" class="peer sr-only">
+                                <div class="px-6 py-2 text-center rounded-xl border-2 border-gray-200 peer-checked:border-blue-400/30 peer-checked:bg-blue-50/50 hover:border-blue-300/50 transition-all duration-300 cursor-pointer">
+                                    <span class="text-gray-700 peer-checked:text-blue-600">無聲卡</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- 下一步按鈕 -->
+                    <div class="flex justify-end">
+                        <button type="submit"
+                            class="px-6 py-3 bg-gradient-to-r from-blue-400 to-purple-400 text-white rounded-xl hover:from-blue-500 hover:to-purple-500 hover:shadow-lg transition-all duration-300">
+                            下一步 <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- 右側提示區塊 -->
+            <div class="lg:w-[29%]">
+                <div class="sticky top-24">
+                    <div class="bg-white rounded-2xl shadow-lg p-6 backdrop-blur-lg bg-opacity-90 border border-gray-100">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-lightbulb text-yellow-400 mr-2"></i>
+                            填寫小提醒
+                        </h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-3">
+                                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center">
+                                    <i class="fas fa-check text-blue-500"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-600 font-medium mb-1">真實性</p>
+                                    <p class="text-gray-500 text-sm">請填寫實際參與過的經驗，避免提供虛構資訊。您的分享將幫助其他求職者做出更好的決定。</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-purple-50 flex items-center justify-center">
+                                    <i class="fas fa-comments text-purple-500"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-600 font-medium mb-1">面試氛圍</p>
+                                    <p class="text-gray-500 text-sm">可描述公司文化、面試官態度、面試流程等細節，幫助他人了解整體面試體驗。</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-green-50 flex items-center justify-center">
+                                    <i class="fas fa-tags text-green-500"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-600 font-medium mb-1">關鍵字標籤</p>
+                                    <p class="text-gray-500 text-sm">建議留下關鍵字，幫助系統日後篩選（例如：遠端、Java、Marketing、新創、外商）。</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-orange-50 flex items-center justify-center">
+                                    <i class="fas fa-clock text-orange-500"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-600 font-medium mb-1">時效性</p>
+                                    <p class="text-gray-500 text-sm">建議分享最近 6 個月內的面試經驗，以確保資訊的時效性。</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-red-50 flex items-center justify-center">
+                                    <i class="fas fa-shield-alt text-red-500"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-600 font-medium mb-1">隱私保護</p>
+                                    <p class="text-gray-500 text-sm">請勿分享個人敏感資訊，如薪資細節、公司機密等。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 更新評價和難度的顯示值
+    document.getElementById('rating').addEventListener('input', function() {
+        document.getElementById('ratingValue').textContent = this.value;
+    });
+
+    document.getElementById('difficulty').addEventListener('input', function() {
+        document.getElementById('difficultyValue').textContent = this.value;
+    });
+</script>
+{% endblock %} 

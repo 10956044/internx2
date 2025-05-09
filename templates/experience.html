@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% from "components/pagination.html" import render_pagination %}
+
+{% block title %}面試經驗分享{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div class="container mx-auto px-4 py-24">
+        <!-- 頁面標題區域 -->
+        <div class="relative mb-16">
+            <!-- 背景裝飾 -->
+            <div class="absolute inset-0 overflow-hidden">
+                <div class="absolute -top-24 -left-24 w-96 h-96 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full opacity-50 blur-3xl"></div>
+                <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-gradient-to-br from-purple-100 to-pink-100 rounded-full opacity-50 blur-3xl"></div>
+            </div>
+            
+            <!-- 標題內容 -->
+            <div class="relative text-center max-w-3xl mx-auto">
+                <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4">
+                    面試經驗分享
+                </h1>
+                <p class="text-gray-600 text-lg leading-relaxed">
+                    查看其他求職者的面試經驗，幫助你更好地準備面試
+                </p>
+                
+                <!-- 分享按鈕 -->
+                <div class="mt-8">
+                    <a href="{{ url_for('interview_basic') }}" 
+                        class="px-6 py-3 bg-gradient-to-r from-blue-400 to-purple-400 text-white rounded-xl hover:from-blue-500 hover:to-purple-500 hover:shadow-lg transition-all duration-300">
+                        <i class="fas fa-plus mr-2"></i>分享我的經驗
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 經驗分享列表 -->
+        <div class="grid gap-6">
+            {% for experience in experiences %}
+            <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+                <div class="flex flex-col lg:flex-row justify-between gap-6">
+                    <!-- 左側主要資訊 -->
+                    <div class="flex-1">
+                        <!-- 公司名稱和職位 -->
+                        <div class="flex items-center gap-4 mb-4">
+                            <h2 class="text-xl font-semibold text-gray-800">{{ experience.company }}</h2>
+                            <span class="px-3 py-1 bg-gradient-to-r from-blue-400/10 to-purple-400/10 text-blue-600 rounded-full text-sm">{{ experience.position }}</span>
+                        </div>
+                        
+                        <!-- 面試基本資訊 -->
+                        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-calendar text-gray-400"></i>
+                                <span class="text-gray-600">{{ experience.interview_date.strftime('%Y-%m-%d') }}</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-map-marker-alt text-gray-400"></i>
+                                <span class="text-gray-600">{{ experience.location }}</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-language text-gray-400"></i>
+                                <span class="text-gray-600">{{ experience.language }}</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <span class="text-gray-600">{{ experience.rating }}/5</span>
+                            </div>
+                        </div>
+
+                        <!-- 面試結果和難度 -->
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-trophy text-gray-400"></i>
+                                <span class="text-gray-600">結果：{{ experience.result }}</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fas fa-chart-line text-gray-400"></i>
+                                <span class="text-gray-600">難度：{{ experience.difficulty }}/5</span>
+                            </div>
+                        </div>
+
+                        <!-- 面試流程預覽 -->
+                        <p class="text-gray-600 line-clamp-2 mb-4">
+                            {{ experience.interview_process }}
+                        </p>
+                    </div>
+
+                    <!-- 右側按鈕 -->
+                    <div class="flex items-center">
+                        <a href="{{ url_for('experience_detail', experience_id=experience.experiences_id) }}"
+                            class="px-6 py-3 bg-gradient-to-r from-blue-400 to-purple-400 text-white rounded-xl hover:from-blue-500 hover:to-purple-500 hover:shadow-lg transition-all duration-300">
+                            閱讀更多 <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %} 

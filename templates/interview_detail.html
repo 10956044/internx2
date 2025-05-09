@@ -1,0 +1,233 @@
+{% extends "base.html" %}
+
+{% block title %}分享面試經驗 - 詳細內容{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-8 py-8">
+    <div class="max-w-6xl mx-auto translate-x-8">
+        <!-- 進度指示器 -->
+        <div class="mb-8">
+            <div class="flex items-center justify-center space-x-4">
+                <div class="flex items-center">
+                    <div class="w-8 h-8 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center">1</div>
+                    <div class="ml-2 text-gray-400">基本資訊</div>
+                </div>
+                <div class="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-400"></div>
+                <div class="flex items-center">
+                    <div class="w-8 h-8 rounded-full bg-gradient-to-r from-blue-400 to-purple-400 text-white flex items-center justify-center">2</div>
+                    <div class="ml-2 text-gray-600">詳細內容</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- 左側表單 -->
+            <div class="lg:w-[65%]">
+                <form id="interviewDetailForm" class="bg-white rounded-2xl shadow-lg p-8" action="{{ url_for('submit_interview') }}" method="POST">
+                    <!-- 隱藏的基本資訊欄位 -->
+                    <input type="hidden" name="company" value="{{ company }}">
+                    <input type="hidden" name="position" value="{{ position }}">
+                    <input type="hidden" name="location" value="{{ location }}">
+                    <input type="hidden" name="interview_date" value="{{ interview_date }}">
+                    <input type="hidden" name="rating" value="{{ rating }}">
+                    <input type="hidden" name="difficulty" value="{{ difficulty }}">
+                    <input type="hidden" name="result" value="{{ result }}">
+                    <input type="hidden" name="language" value="{{ language }}">
+                    <input type="hidden" name="written_test" value="{{ written_test }}">
+                    <input type="hidden" name="second_interview" value="{{ second_interview }}">
+                    <input type="hidden" name="result_wait_time" value="{{ result_wait_time }}">
+
+                    <!-- 面試流程 -->
+                    <div class="mb-8">
+                        <label class="block text-gray-700 text-sm font-medium mb-2" for="interview_process">
+                            面試流程 <span class="text-red-500">*</span>
+                        </label>
+                        <textarea id="interview_process" name="interview_process" rows="4" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+                            placeholder="請描述面試的整體流程，例如：自我介紹、技術測驗、主管面談等"></textarea>
+                    </div>
+
+                    <!-- 面試問題 -->
+                    <div class="mb-8">
+                        <label class="block text-gray-700 text-sm font-medium mb-2" for="questions_asked">
+                            面試問題 <span class="text-red-500">*</span>
+                        </label>
+                        <textarea id="questions_asked" name="questions_asked" rows="6" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+                            placeholder="請分享面試中被問到的問題，以及您的回答方式"></textarea>
+                    </div>
+
+                    <!-- 面試氛圍 -->
+                    <div class="mb-8">
+                        <label class="block text-gray-700 text-sm font-medium mb-2" for="atmosphere">
+                            面試氛圍 <span class="text-red-500">*</span>
+                        </label>
+                        <textarea id="atmosphere" name="atmosphere" rows="3" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+                            placeholder="請描述面試的整體氛圍，例如：輕鬆、嚴肅、壓力測試等"></textarea>
+                    </div>
+
+                    <!-- 準備建議 -->
+                    <div class="mb-8">
+                        <label class="block text-gray-700 text-sm font-medium mb-2" for="advice">
+                            準備建議 <span class="text-red-500">*</span>
+                        </label>
+                        <textarea id="advice" name="advice" rows="4" required
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+                            placeholder="請分享您認為應該如何準備這個職位的面試"></textarea>
+                    </div>
+
+                    <!-- 其他補充 -->
+                    <div class="mb-8">
+                        <label class="block text-gray-700 text-sm font-medium mb-2" for="additional">
+                            其他補充
+                        </label>
+                        <textarea id="additional" name="additional" rows="3"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+                            placeholder="其他想分享的內容，例如：公司文化、工作環境等"></textarea>
+                    </div>
+
+                    <!-- 提交按鈕 -->
+                    <div class="flex justify-between">
+                        <a href="{{ url_for('interview_basic') }}"
+                            class="px-6 py-3 bg-gray-100 text-gray-600 rounded-xl hover:bg-gray-200 transition-all duration-300">
+                            <i class="fas fa-arrow-left mr-2"></i> 上一步
+                        </a>
+                        <button type="submit"
+                            class="px-6 py-3 bg-gradient-to-r from-blue-400 to-purple-400 text-white rounded-xl hover:from-blue-500 hover:to-purple-500 hover:shadow-lg transition-all duration-300">
+                            提交 <i class="fas fa-paper-plane ml-2"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- 右側提示區塊 -->
+            <div class="lg:w-[29%]">
+                <div class="sticky top-24">
+                    <!-- 分享範例 -->
+                    <div class="bg-white rounded-2xl shadow-lg p-6 backdrop-blur-lg bg-opacity-90 border border-gray-100 mb-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-lightbulb text-yellow-400 mr-2"></i>
+                            分享範例
+                        </h3>
+                        <div class="space-y-6">
+                            <div class="p-4 bg-blue-50 rounded-xl">
+                                <div class="flex items-start space-x-3">
+                                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+                                        <i class="fas fa-code text-blue-500"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-gray-600 text-sm">被問到三個 Python 實作題，偏向邏輯思考，建議熟悉資料結構與演算法。</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-4 bg-purple-50 rounded-xl">
+                                <div class="flex items-start space-x-3">
+                                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center">
+                                        <i class="fas fa-comments text-purple-500"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-gray-600 text-sm">HR 比較親切，技術官比較嚴肅，整體氛圍偏向壓力測試。</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-4 bg-green-50 rounded-xl">
+                                <div class="flex items-start space-x-3">
+                                    <div class="flex-shrink-0 w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
+                                        <i class="fas fa-lightbulb text-green-500"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-gray-600 text-sm">建議熟悉資料結構與演算法，並準備一些實際案例來展示經驗。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 填寫建議 -->
+                    <div class="bg-white rounded-2xl shadow-lg p-6 backdrop-blur-lg bg-opacity-90 border border-gray-100">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-pencil-alt text-blue-400 mr-2"></i>
+                            填寫建議
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-3">
+                                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center">
+                                    <i class="fas fa-list text-blue-500"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-600 font-medium mb-1">分段描述</p>
+                                    <p class="text-gray-500 text-sm">建議將內容分段描述，幫助閱讀者快速理解。</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-purple-50 flex items-center justify-center">
+                                    <i class="fas fa-comment-alt text-purple-500"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-600 font-medium mb-1">面試氛圍</p>
+                                    <p class="text-gray-500 text-sm">可提及面試氣氛，是否為壓力測試等。</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="flex-shrink-0 w-8 h-8 rounded-full bg-green-50 flex items-center justify-center">
+                                    <i class="fas fa-check text-green-500"></i>
+                                </div>
+                                <div>
+                                    <p class="text-gray-600 font-medium mb-1">具體建議</p>
+                                    <p class="text-gray-500 text-sm">提供具體的準備建議，幫助其他求職者。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 成功提示動畫 -->
+<div id="successToast" class="fixed top-32 right-4 transform translate-x-full opacity-0 transition-all duration-300">
+    <div class="bg-white rounded-xl shadow-lg p-4 flex items-center space-x-3 border-l-4 border-green-500">
+        <div class="flex-shrink-0">
+            <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
+                <i class="fas fa-check text-green-500"></i>
+            </div>
+        </div>
+        <div class="flex-1">
+            <p class="text-gray-800 font-medium">分享成功！</p>
+            <p class="text-sm text-gray-600">感謝您的分享，這將幫助更多求職者。</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 自動調整文本框高度
+    document.querySelectorAll('textarea').forEach(textarea => {
+        textarea.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+    });
+
+    // 表單提交處理
+    document.getElementById('interviewDetailForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // 顯示成功提示
+        const toast = document.getElementById('successToast');
+        if (toast) {
+            toast.classList.remove('translate-x-full', 'opacity-0');
+            toast.classList.add('translate-x-0', 'opacity-100');
+        }
+        
+        // 提交表單
+        this.submit();
+        
+        // 3秒後跳轉到經驗分享列表
+        setTimeout(() => {
+            window.location.href = "{{ url_for('experience') }}";
+        }, 3000);
+    });
+</script>
+{% endblock %} 

@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}{{ experience.company }} - {{ experience.position }} 面試經驗{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-8 py-8">
+    <div class="max-w-4xl mx-auto">
+        <!-- 返回按鈕 -->
+        <div class="mb-8">
+            <a href="{{ url_for('experience') }}" class="inline-flex items-center text-gray-600 hover:text-gray-800">
+                <i class="fas fa-arrow-left mr-2"></i>
+                返回列表
+            </a>
+        </div>
+
+        <!-- 主要內容 -->
+        <div class="bg-white rounded-2xl shadow-lg p-8">
+            <!-- 標題區 -->
+            <div class="mb-8">
+                <div class="flex items-center gap-4 mb-4">
+                    <h1 class="text-3xl font-bold text-gray-800">{{ experience.company }}</h1>
+                    <span class="px-4 py-1.5 bg-blue-50 text-blue-600 rounded-full text-sm">{{ experience.position }}</span>
+                </div>
+                
+                <!-- 基本資訊 -->
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-calendar text-gray-400"></i>
+                        <span class="text-gray-600">{{ experience.interview_date.strftime('%Y-%m-%d') }}</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-map-marker-alt text-gray-400"></i>
+                        <span class="text-gray-600">{{ experience.location }}</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-language text-gray-400"></i>
+                        <span class="text-gray-600">{{ experience.language }}</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <span class="text-gray-600">{{ experience.rating }}/5</span>
+                    </div>
+                </div>
+
+                <!-- 面試結果和難度 -->
+                <div class="flex items-center gap-6 mb-6">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-trophy text-gray-400"></i>
+                        <span class="text-gray-600">結果：{{ experience.result }}</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-chart-line text-gray-400"></i>
+                        <span class="text-gray-600">難度：{{ experience.difficulty }}/5</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 詳細內容 -->
+            <div class="space-y-8">
+                <!-- 面試流程 -->
+                <div>
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-list-ol text-blue-500 mr-2"></i>
+                        面試流程
+                    </h2>
+                    <div class="prose max-w-none">
+                        <p class="text-gray-600 whitespace-pre-line">{{ experience.interview_process }}</p>
+                    </div>
+                </div>
+
+                <!-- 面試問題 -->
+                <div>
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-question-circle text-purple-500 mr-2"></i>
+                        面試問題
+                    </h2>
+                    <div class="prose max-w-none">
+                        <p class="text-gray-600 whitespace-pre-line">{{ experience.questions_asked }}</p>
+                    </div>
+                </div>
+
+                <!-- 面試氛圍 -->
+                <div>
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-comments text-green-500 mr-2"></i>
+                        面試氛圍
+                    </h2>
+                    <div class="prose max-w-none">
+                        <p class="text-gray-600 whitespace-pre-line">{{ experience.atmosphere }}</p>
+                    </div>
+                </div>
+
+                <!-- 準備建議 -->
+                <div>
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+                        準備建議
+                    </h2>
+                    <div class="prose max-w-none">
+                        <p class="text-gray-600 whitespace-pre-line">{{ experience.advice }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
