@@ -1,10 +1,69 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from flask_login import login_user, logout_user, login_required, current_user
 from models import db, User
 from werkzeug.security import generate_password_hash, check_password_hash
 import logging
+from authlib.integrations.flask_client import OAuth
+import os
 
 auth = Blueprint('auth', __name__)
+oauth = OAuth()
+# Google OAuth 註冊
+@auth.record_once
+def init_oauth(state):
+    app = state.app
+    oauth.init_app(app)
+    oauth.register(
+    name='google',
+    client_id=os.getenv("GOOGLE_CLIENT_ID"),
+    client_secret=os.getenv("GOOGLE_CLIENT_SECRET"),
+    server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
+    client_kwargs={
+        'scope': 'openid email profile'
+    },
+    userinfo_endpoint='https://openidconnect.googleapis.com/v1/userinfo',
+    fetch_userinfo=True
+)
+
+# Google登入按鈕
+@auth.route('/login/google')
+def google_login():
+    redirect_uri = url_for('auth.google_callback', _external=True)
+    return oauth.google.authorize_redirect(redirect_uri)
+# Google 登入回傳處理
+@auth.route('/login/callback')
+def google_callback():
+    token = oauth.google.authorize_access_token()
+
+    if 'userinfo' not in token:
+        flash('無法從 Google 獲取用戶資料', 'error')
+        return redirect(url_for('auth.login'))
+
+    user_info = token['userinfo']
+    session['user'] = user_info  # 如果你有要前端取用
+
+    email = user_info.get('email')
+    username = user_info.get('name')
+    image = user_info.get('picture')
+
+    # 查詢或創建使用者
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        user_id = User.generate_user_id()
+        user = User(
+            user_id=user_id,
+            username=username,
+            email=email,
+            image=image,
+            permission='default user',
+            # is_oauth_user=True  # 請確認你的模型有這欄位
+        )
+        db.session.add(user)
+        db.session.commit()
+
+    login_user(user)
+    flash('成功使用 Google 登入', 'success')
+    return redirect(url_for('profile'))
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():

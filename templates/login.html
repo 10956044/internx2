@@ -3,11 +3,13 @@
 {% block title %}登入 - InternX{% endblock %}
 
 {% block content %}
-<div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+<div
+    class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-8">
         <!-- 頁面標題 -->
         <div class="text-center">
-            <h2 class="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4">
+            <h2
+                class="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4">
                 歡迎回來
             </h2>
             <p class="text-gray-600">登入您的帳號，繼續探索實習機會</p>
@@ -18,38 +20,49 @@
             <form class="space-y-6" method="POST" action="{{ url_for('auth.login') }}">
                 <!-- 電子郵件 -->
                 <div class="relative group">
-                    <label class="block text-sm font-medium text-gray-700 mb-2 group-hover:text-blue-500 transition-colors">
+                    <label
+                        class="block text-sm font-medium text-gray-700 mb-2 group-hover:text-blue-500 transition-colors">
                         電子郵件
                     </label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg class="h-5 w-5 text-gray-400 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+                            <svg class="h-5 w-5 text-gray-400 group-hover:text-blue-500 transition-colors" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
                             </svg>
                         </div>
-                        <input type="email" name="email" required class="w-full pl-10 rounded-xl border-gray-200 shadow-sm focus:border-blue-400 focus:ring-blue-400 transition-all duration-300 hover:border-blue-300" placeholder="請輸入電子郵件">
+                        <input type="email" name="email" required
+                            class="w-full pl-10 rounded-xl border-gray-200 shadow-sm focus:border-blue-400 focus:ring-blue-400 transition-all duration-300 hover:border-blue-300"
+                            placeholder="請輸入電子郵件">
                     </div>
                 </div>
 
                 <!-- 密碼 -->
                 <div class="relative group">
-                    <label class="block text-sm font-medium text-gray-700 mb-2 group-hover:text-blue-500 transition-colors">
+                    <label
+                        class="block text-sm font-medium text-gray-700 mb-2 group-hover:text-blue-500 transition-colors">
                         密碼
                     </label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg class="h-5 w-5 text-gray-400 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                            <svg class="h-5 w-5 text-gray-400 group-hover:text-blue-500 transition-colors" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                             </svg>
                         </div>
-                        <input type="password" name="password" required class="w-full pl-10 rounded-xl border-gray-200 shadow-sm focus:border-blue-400 focus:ring-blue-400 transition-all duration-300 hover:border-blue-300" placeholder="請輸入密碼">
+                        <input type="password" name="password" required
+                            class="w-full pl-10 rounded-xl border-gray-200 shadow-sm focus:border-blue-400 focus:ring-blue-400 transition-all duration-300 hover:border-blue-300"
+                            placeholder="請輸入密碼">
                     </div>
                 </div>
 
                 <!-- 記住我 -->
                 <div class="flex items-center justify-between">
                     <div class="flex items-center">
-                        <input type="checkbox" name="remember" class="h-4 w-4 text-blue-400 focus:ring-blue-400 border-gray-300 rounded">
+                        <input type="checkbox" name="remember"
+                            class="h-4 w-4 text-blue-400 focus:ring-blue-400 border-gray-300 rounded">
                         <label class="ml-2 block text-sm text-gray-700">
                             記住我
                         </label>
@@ -61,9 +74,11 @@
 
                 <!-- 登入按鈕 -->
                 <div>
-                    <button type="submit" class="w-full bg-gradient-to-r from-blue-400 to-purple-400 text-white py-3 px-6 rounded-xl hover:shadow-lg hover:scale-105 transform transition-all duration-300 flex items-center justify-center space-x-2">
+                    <button type="submit"
+                        class="w-full bg-gradient-to-r from-blue-400 to-purple-400 text-white py-3 px-6 rounded-xl hover:shadow-lg hover:scale-105 transform transition-all duration-300 flex items-center justify-center space-x-2">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
                         </svg>
                         <span>登入</span>
                     </button>
@@ -81,12 +96,16 @@
                     </div>
                 </div>
             </div>
-
+            <!-- Google帳號 -->
+            <a href="{{ url_for('auth.google_login') }}" class="btn btn-danger">
+                使用 Google 帳號登入
+            </a>
             <!-- 註冊連結 -->
             <div class="mt-6 text-center">
                 <p class="text-sm text-gray-600">
                     還沒有帳號？
-                    <a href="{{ url_for('auth.register') }}" class="font-medium text-blue-500 hover:text-blue-600 transition-colors">
+                    <a href="{{ url_for('auth.register') }}"
+                        class="font-medium text-blue-500 hover:text-blue-600 transition-colors">
                         立即註冊
                     </a>
                 </p>
@@ -111,45 +130,45 @@
 </div>
 
 <script>
-// 檢查是否有錯誤訊息
-{% with messages = get_flashed_messages(with_categories=true) %}
+    // 檢查是否有錯誤訊息
+    {% with messages = get_flashed_messages(with_categories = true) %}
     {% if messages %}
-        {% for category, message in messages %}
-            {% if category == 'error' %}
-                const toast = document.getElementById('loginErrorToast');
-                // 顯示提示
-                toast.classList.remove('translate-x-full', 'opacity-0');
-                toast.classList.add('translate-x-0', 'opacity-100');
-                
-                // 3秒後隱藏提示
-                setTimeout(() => {
-                    toast.classList.remove('translate-x-0', 'opacity-100');
-                    toast.classList.add('translate-x-full', 'opacity-0');
-                }, 3000);
-            {% endif %}
-        {% endfor %}
-    {% endif %}
-{% endwith %}
-
-// 表單提交時的驗證
-document.querySelector('form').addEventListener('submit', function(e) {
-    const email = document.querySelector('input[name="email"]').value;
-    const password = document.querySelector('input[name="password"]').value;
+    {% for category, message in messages %}
+    {% if category == 'error' %}
     const toast = document.getElementById('loginErrorToast');
-    
-    if (!email || !password) {
-        e.preventDefault();
-        
-        // 顯示提示
-        toast.classList.remove('translate-x-full', 'opacity-0');
-        toast.classList.add('translate-x-0', 'opacity-100');
-        
-        // 3秒後隱藏提示
-        setTimeout(() => {
-            toast.classList.remove('translate-x-0', 'opacity-100');
-            toast.classList.add('translate-x-full', 'opacity-0');
-        }, 3000);
-    }
-});
+    // 顯示提示
+    toast.classList.remove('translate-x-full', 'opacity-0');
+    toast.classList.add('translate-x-0', 'opacity-100');
+
+    // 3秒後隱藏提示
+    setTimeout(() => {
+        toast.classList.remove('translate-x-0', 'opacity-100');
+        toast.classList.add('translate-x-full', 'opacity-0');
+    }, 3000);
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    // 表單提交時的驗證
+    document.querySelector('form').addEventListener('submit', function (e) {
+        const email = document.querySelector('input[name="email"]').value;
+        const password = document.querySelector('input[name="password"]').value;
+        const toast = document.getElementById('loginErrorToast');
+
+        if (!email || !password) {
+            e.preventDefault();
+
+            // 顯示提示
+            toast.classList.remove('translate-x-full', 'opacity-0');
+            toast.classList.add('translate-x-0', 'opacity-100');
+
+            // 3秒後隱藏提示
+            setTimeout(() => {
+                toast.classList.remove('translate-x-0', 'opacity-100');
+                toast.classList.add('translate-x-full', 'opacity-0');
+            }, 3000);
+        }
+    });
 </script>
-{% endblock %} 
+{% endblock %}

@@ -15,6 +15,7 @@ class User(UserMixin, db.Model):
     image = db.Column(db.String(200), nullable=True)
     permission = db.Column(db.String(50), nullable=False, default='default user')
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    is_oauth_user = db.Column(db.Boolean, default=False)
     
     def get_id(self):
         return self.user_id
