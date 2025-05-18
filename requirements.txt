@@ -23,7 +23,7 @@ gunicorn==21.2.0
 click==8.1.7
 blinker==1.7.0
 eventlet==0.35.2
-request
+requests
 # 安全性相關
 cryptography==42.0.5
 itsdangerous==2.1.2
